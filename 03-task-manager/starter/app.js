@@ -10,11 +10,18 @@ app.use("/api/v1/tasks", tasks);
 app.get("/hello", (req, res) => {
   res.send("Hey there we're in ");
 });
-
-connectDB();
-
 const PORT = 3000;
 
-app.listen(PORT, () => {
-  console.log(`Running on port ${PORT}....`);
-});
+const start = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Running on port ${PORT}....`);
+    });
+    console.log(`Connected to database....`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
